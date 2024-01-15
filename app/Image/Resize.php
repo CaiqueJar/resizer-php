@@ -4,7 +4,6 @@ namespace App\Image;
 
 class Resize {
     private $image;
-
     private $type;
 
     public function __construct($file) {
@@ -14,9 +13,8 @@ class Resize {
         $this->type = $info['extension'] == 'jpg' ? 'jpeg' : $info['extension']; 
     }
 
-    public function resize($newWidth, $newHeight = -1) {
-        $this->image = imagescale($this->image, $newWidth, $newHeight);
-        
+    public function resize($new_width, $new_height = -1) {
+        $this->image = imagescale($this->image, $new_width, $new_height);
     }
 
     public function print($quality = 100) {
@@ -25,30 +23,32 @@ class Resize {
         exit();
     }
 
-    public function save($localFile, $quality = 100) {
-        $this->output($localFile, $quality);
+    public function save($local_file, $quality = 100, $type = null) {
+        $this->output($local_file, $quality, $type);
     }
 
-    private function output($localFile, $quality = 100) {
+    private function output($local_file, $quality = 100, $type = null) {
+        $this->type = $type ?? $this->type;
+        
         switch($this->type) {
             case 'jpeg':
-                imagejpeg($this->image, $localFile, $quality);
+                imagejpeg($this->image, $local_file, $quality);
                 break;
 
             case 'png':
-                imagepng($this->image, $localFile, 9 * ($quality/100));
+                imagepng($this->image, $local_file, 9 * ($quality/100));
                 break;
 
             case 'bmp':
-                imagewbmp($this->image, $localFile, $quality);
+                imagewbmp($this->image, $local_file, $quality);
                 break;
 
             case 'gif':
-                imagegif($this->image, $localFile);
+                imagegif($this->image, $local_file);
                 break;
             
             case 'webp':
-                imagewebp($this->image, $localFile, $quality);
+                imagewebp($this->image, $local_file, $quality);
                 break;
         }
     }

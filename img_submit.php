@@ -4,31 +4,53 @@ require __DIR__ . '/vendor/autoload.php';
 
 use \App\Image\Resize;
 
-
 $images = $_FILES['imgs'];
+$convert_images_to_webp = $_POST['webp'] ?? null;
 $upload_dir = 'uploads/';
 
 
-$images_names = [];
+$images_info = [];
 
-for ($i = 0; $i < count($images["name"]); $i++) {
-    $filename = basename($images["name"][$i]);
-    $images_names[] = $filename;
-    $target_path = $upload_dir . $filename;
+foreach ($images['name'] as $index => $file_name) {
+    $target_path = __DIR__ . "/" . $upload_dir . $file_name;
 
-    // Move the file from the temporary directory to the target directory
-    if (move_uploaded_file($images["tmp_name"][$i], $target_path)) {
-        echo "File $filename has been uploaded successfully.<br>";
+    $file_path = $images['tmp_name'][$index];
+    $file_size = $images['size'][$index];
+
+    if($convert_images_to_webp) {
+        $convert_to_webp = in_array("$file_size/$file_name", $convert_images_to_webp);
+
+    }
+
+    $image_info = [
+        'file_name' => pathinfo($file_name, PATHINFO_FILENAME),
+        'file_extension' => pathinfo($file_name, PATHINFO_EXTENSION),
+        'target_path' => $target_path,
+        'convert_to_webp' => $convert_to_webp ?? false,
+    ];
+    $images_info[] = $image_info;
+
+    if (move_uploaded_file($images["tmp_name"][$index], $target_path)) {
+        echo "File $file_name has been uploaded successfully.<br>";
     } else {
-        echo "Error uploading file $filename.<br>";
+        echo "Error uploading file $file_name.<br>";
     }
 }
 
-foreach ($images_names as $filename) {
-    $obResize = new Resize(__DIR__ . "/{$upload_dir}{$filename}");
-    $obResize->resize(100, -1);
-    
-    // $obResize->print(100);
-    
-    $obResize->save(__DIR__."/img/{$filename}", 50);
+foreach ($images_info as $info) {
+    $file_complete_name = $info['file_name'] . '.' . $info['file_extension'];
+    $type = $info['file_extension'];
+
+    if($info['convert_to_webp']) {
+        $type = 'webp';
+        $file_complete_name = $info['file_name'] . '.webp';
+    }
+
+    $path_image = __DIR__."/img/{$file_complete_name}";
+    $obResize = new Resize($info['target_path']);
+    var_dump($path_image);
+    echo "<br>";
+    // $obResize->resize(50, -1);
+
+    $obResize->save($path_image, 90, $type);
 }
