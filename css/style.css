@@ -6,7 +6,47 @@
 }
 body {
     background-color: rgb(73, 124, 219);
-    font-family: 'Open Sans', sans-serif
+    font-family: 'Open Sans', sans-serif;
+    overflow: hidden;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+#loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 500;
+    background: #0000007d;
+}
+#loading span {
+    position: absolute;
+    top: 50%;
+}
+input[type="number"] {
+    border: none;
+    background: #e4e4e4;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border-bottom: #c8c8c8 2px solid;
 }
 form {
     position: absolute;
@@ -27,8 +67,8 @@ form .drag .drag-zone {
     flex-direction: column;
     align-items: center;
     font-size: 1.8rem;
-    width: fit-content;
-    padding: 20px;
+    width: 100%;
+    padding: 40px 20px;
     color: #2c2c2c;
     border: #2c2c2c 2px dashed;
     border-radius: 6px;
@@ -46,7 +86,10 @@ section.header-controll p {
     font-weight: 500;
 }
 section.header-controll .general-options {
-    margin: 20px 0;
+    margin: 20px 0
+}
+section.header-controll .general-options .option {
+    margin: 6px 0;
 }
 .btn {
     background-color: rgb(85, 85, 85);
@@ -58,6 +101,10 @@ section.header-controll .general-options {
     padding: 4px 10px;
     cursor: pointer;
     position: relative;
+    display: inline-block;
+    font-size: 16px;
+    min-height: 32px;
+    min-width: 32px;
 }
 .btn.btn-primary {
     background-color: #1d5ec0 !important;
@@ -82,13 +129,71 @@ section.header-controll .general-options {
     opacity: 0;
     transition: all .2s ease;
     pointer-events: none;
+    z-index: 3;
+}
+.content-popup{
+    display: flex;
+    gap: 50px;
+    transform: translate(80vw, 60vh);
+}
+.pop-up {
+    margin-bottom: 30px;
+    position: sticky;
+    display: flex;
+    background: white;
+    gap: 8px;
+    right: 20px;
+    bottom: 32px;
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 1;
+    transition: all .2s ease;
+}
+.pop-up .icon {
+    background: #ff4f4f;
+    padding: 12px;
+    font-size: 1.8rem;
+    color: #ffd6d6;
+}
+.pop-up .text {
+    max-width: 300px;
+    padding: 6px;
+}
+.pop-up .text span {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.pop-up.error .icon {
+    background: #ff4f4f;
+    color: #ffd6d6;
+}
+.pop-up.error .icon i {
+    filter: drop-shadow(0 3px 0 #e33c3c)
+}
+.pop-up.success .icon {
+    background: #42d456;
+    color: #b7f7bb;
+}
+.pop-up.success .icon i {
+    filter: drop-shadow(0 3px 0 #34bb46)
+}
+.pop-up.warning .icon {
+    background: #f3c221;
+    color: #f7e1b7;
+}
+.pop-up.warning .icon i {
+    filter: drop-shadow(0 3px 0 #bb9034)
 }
 .panel {
-  padding: 0 18px;
-  background-color: white;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    margin: 6px 0;
+    border-radius: 6px;
+    box-shadow: 6px 6px #c8c8c8;
+    transition: max-height 0.2s ease-out;
 }
 .panel.active {
     height: 100%;
@@ -116,6 +221,9 @@ section.inputs {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: 260px;
+    overflow: auto;
+    width: 582px;
 }
 section.inputs .input {
     display: flex;
@@ -146,6 +254,6 @@ section.inputs .input .img-container img {
 }
 #create-img-input:hover .tooltip,
 section.inputs .input .btn:hover .tooltip {
-    top: -42px;
+    top: 112%;
     opacity: 1;
 }

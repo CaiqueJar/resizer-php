@@ -32,11 +32,14 @@ class Resize {
         
         switch($this->type) {
             case 'jpeg':
-                imagejpeg($this->image, $local_file, $quality);
+                imagejpeg($this->image, $local_file);
+                break;
+            case 'jpg':
+                imagejpeg($this->image, $local_file);
                 break;
 
             case 'png':
-                imagepng($this->image, $local_file, 9 * ($quality/100));
+                imagepng($this->image, $local_file, 10 * ($quality/100));
                 break;
 
             case 'bmp':
@@ -48,8 +51,10 @@ class Resize {
                 break;
             
             case 'webp':
+                imagepalettetotruecolor($this->image);
                 imagewebp($this->image, $local_file, $quality);
                 break;
         }
+        imagedestroy($this->image);
     }
 }
