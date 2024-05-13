@@ -36,10 +36,15 @@ body {
     font-size: 4rem;
     font-weight: 500;
     background: #0000007d;
+    top: 0;
 }
 #loading span {
     position: absolute;
     top: 50%;
+    background: white;
+    padding: 20px 48px;
+    border-radius: 12px;
+    box-shadow: 6px 6px gray;
 }
 input[type="number"] {
     border: none;
@@ -201,6 +206,7 @@ section.header-controll .general-options .option {
 .row {
     display: flex;
     gap: 20px;
+    align-items: center;
 }
 .row.create-img {
     justify-content: space-between;
@@ -225,6 +231,15 @@ section.inputs {
     overflow: auto;
     width: 582px;
 }
+section.inputs .add-new-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    color: #c8c8c8;
+    height: 100%;
+    cursor: pointer;
+}
 section.inputs .input {
     display: flex;
     align-items: center;
@@ -237,7 +252,7 @@ section.inputs .input {
 section.inputs .input .input-options {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 6px;
 }
 section.inputs .input .input-options .option {
     position: relative;

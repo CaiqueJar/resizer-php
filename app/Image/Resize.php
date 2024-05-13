@@ -13,7 +13,8 @@ class Resize {
         $this->type = $info['extension'] == 'jpg' ? 'jpeg' : $info['extension']; 
     }
 
-    public function resize($new_width, $new_height = -1) {
+    public function resize($new_width, $new_height = -1, $type = 'percentage') {
+
         $this->image = imagescale($this->image, $new_width, $new_height);
     }
 
@@ -32,10 +33,10 @@ class Resize {
         
         switch($this->type) {
             case 'jpeg':
-                imagejpeg($this->image, $local_file);
+                imagejpeg($this->image, $local_file, $quality);
                 break;
             case 'jpg':
-                imagejpeg($this->image, $local_file);
+                imagejpeg($this->image, $local_file, $quality);
                 break;
 
             case 'png':

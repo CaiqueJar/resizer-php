@@ -3,7 +3,7 @@
         'name' => 'dias/resize',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '7ae988b02dc930ec7d123073dcc88b73c1ba06ab',
+        'reference' => '74d38202675b6508d470c39b5a03d5997fdb5332',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'dias/resize' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '7ae988b02dc930ec7d123073dcc88b73c1ba06ab',
+            'reference' => '74d38202675b6508d470c39b5a03d5997fdb5332',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
